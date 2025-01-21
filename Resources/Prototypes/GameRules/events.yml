@@ -41,6 +41,7 @@
    # - id: BlobSpawn #Goobstation - Blob  (not added wile undergoing playtesting)
     - id: FalseAlarm
     - id: DerelictCyborgSpawn
+    - id: ImmovableRodSpawn #Funkystation - because I'm evil
 
 - type: entity
   id: BaseStationEvent

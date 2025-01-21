@@ -204,11 +204,11 @@
     startAnnouncement: station-event-immovable-rod-start-announcement
     startAudio:
       path: /Audio/Announcements/attention.ogg
-    weight: 3.5
+    weight: 1 #funkystation - good god this needs to be rare
     reoccurrenceDelay: 1
     duration: 1
-    earliestStart: 30
-    minimumPlayers: 25
+    earliestStart: 90 #this will 90% of the time end the round on the spot if not cause a singuloose
+    minimumPlayers: 30
   - type: ImmovableRodRule
     rodPrototypes:
     - id: ImmovableRodKeepTilesStill
