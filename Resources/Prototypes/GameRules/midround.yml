@@ -19,8 +19,8 @@
     agentName: thief-round-end-agent-name
     definitions:
     - prefRoles: [ Thief ]
-      max: 3
-      playerRatio: 25 #funky reduce le rate
+      max: 5
+      playerRatio: 15 #funkystation funny
       lateJoinAdditional: true
       allowNonHumans: true
       multiAntagSetting: NotExclusive
