@@ -12,7 +12,7 @@ namespace Content.Shared.Movement.Components
     public sealed partial class MovementSpeedModifierComponent : Component
     {
         // Weightless
-        public const float DefaultMinimumFrictionSpeed = 0.005f;
+        public const float DefaultMinimumFrictionSpeed = 0.0f; //funky
         public const float DefaultWeightlessFriction = 1f;
         public const float DefaultWeightlessFrictionNoInput = 0f;
         public const float DefaultOffGridFriction = 0f;
