@@ -145,6 +145,16 @@
 
 - type: latheRecipe
   parent: BaseWeaponRecipeLong
+  id: WeaponTemperatureGun
+  result: WeaponTemperatureGun
+  materials:
+    Steel: 2000
+    Glass: 500
+    Plastic: 500
+    Gold: 500
+
+- type: latheRecipe
+  parent: BaseWeaponRecipeLong
   id: WeaponLaserSvalinn
   result: WeaponLaserSvalinn
   materials:
