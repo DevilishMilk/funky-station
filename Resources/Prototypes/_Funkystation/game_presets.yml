@@ -95,4 +95,13 @@
   rules:
     - SecretDirector
 
+- type: gamePreset
+  id: Rosa14
+  alias:
+  - rosa14
+  name: rosa-title
+  description: rosa-description
+  showInVote: false
+  rules:
+  - Rosa14
 

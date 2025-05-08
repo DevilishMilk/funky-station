@@ -1,0 +1,8 @@
+- type: entity
+  parent: BaseMindRoleAntag
+  id: MindRoleRosa
+  name: Rosa Role
+  components:
+  - type: MindRole
+    antag: false
+  - type: RosaRole

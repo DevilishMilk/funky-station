@@ -56,3 +56,9 @@
   - type: Tag
     tags:
       - RoundstartAntag
+
+- type: entity
+  parent: BaseGameRule
+  id: Rosa14
+  components:
+  - type: RosaRule

@@ -29,3 +29,21 @@
         pitch: 1
         maxDistance: 15
     clumsyVaulting: false
+
+#Rosa
+- type: entity
+  parent: MobHuman
+  id: MobHumanRosaAgentRed
+  name: Red Rosa Agent
+  suffix: Human, Base
+  components:
+  - type: RandomHumanoidAppearance
+    randomizeName: false
+  - type: Loadout
+    prototypes: [VisitorLawyerAltC]
+  - type: RandomMetadata
+    nameSegments:
+    - "Red"
+    - fake_human_last
+    components:
+    - type: RosaAgentRole
