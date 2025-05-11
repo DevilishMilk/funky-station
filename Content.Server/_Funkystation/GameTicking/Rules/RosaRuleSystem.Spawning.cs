@@ -80,11 +80,11 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
         for (var i = 0; i < participatingPlayers.Count(); i++)
         {
             var role = participatingPlayers[i];
-            if (i % 2 == 0) {
+            if (i % 3 == 0) {
                 role.comp.Role = RosaAgentRole.Red;
             }
 
-            if (i % 3 == 0) {
+            if (i % 2 == 0) {
                 role.comp.Role = RosaAgentRole.Green;
             }
             else
