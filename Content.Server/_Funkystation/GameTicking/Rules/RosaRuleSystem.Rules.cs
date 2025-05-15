@@ -46,9 +46,11 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
         }
 
         if (ros.EndAt > TimeSpan.Zero)
+        {
             return;
+        }
 
-        ros.GameState = RosaGameState.PostRound;
-        _roundEndSystem.EndRound(TimeSpan.FromSeconds(ros.PostRoundDuration));
+        //STARTIN A NEW DAY BUB
+        StartNewDay(ros);
     }
 }

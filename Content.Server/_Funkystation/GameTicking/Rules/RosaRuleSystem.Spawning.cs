@@ -2,6 +2,7 @@ using System.Linq;
 using Content.Server.GameTicking.Rules;
 using Content.Server._Funkystation.GameTicking.Rules.Components;
 using Content.Server._Funkystation.Roles;
+using Content.Server.Administration.Commands;
 using Content.Server.Roles;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
@@ -17,7 +18,6 @@ namespace Content.Server._Funkystation.GameTicking.Rules;
 
 public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
 {
-
     private void OnGetBriefing(Entity<RosaRoleComponent> role, ref GetBriefingEvent args)
     {
         args.Briefing = role.Comp.Role switch
@@ -31,6 +31,7 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
 
     private void StartRound(EntityUid uid, RosaRuleComponent component, GameRuleComponent gameRule)
     {
+        component.RosaCurrentDay = 0;
         component.GameState = RosaGameState.InProgress;
         component.EndAt = TimeSpan.FromSeconds(component.RoundDuration);
 
@@ -51,7 +52,6 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
             participatingPlayers.Add((contentData.Mind.Value, role));
         }
 
-
         if (participatingPlayers.Count == 0)
         {
             _chatManager.DispatchServerAnnouncement(
@@ -68,15 +68,10 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
                 _rejuvenate.PerformRejuvenate(ent.Value);
         }
 
-        //this doesn't matter i don't think but i'm keeping it in because it's funny - mish
         RobustRandom.Shuffle(participatingPlayers); // Shuffle the list so we can just take the first N players
-        RobustRandom.Shuffle(participatingPlayers);
-        RobustRandom.Shuffle(participatingPlayers); // I don't trust the shuffle.
-        RobustRandom.Shuffle(participatingPlayers);
-        RobustRandom.Shuffle(participatingPlayers); // I really don't trust the shuffle.
+        RobustRandom.Shuffle(participatingPlayers); // Twice for good measure
 
         //assign players one by one into three teams
-        //TODO: steal or think of a better way to do this because this isn't actually even
         for (var i = 0; i < participatingPlayers.Count(); i++)
         {
             var role = participatingPlayers[i];
@@ -98,6 +93,8 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
                 Log.Error("Player mind has no entity.");
             }
         }
+
+        StartNewDay(component);
     }
 
     private void OnBeforeSpawn(PlayerBeforeSpawnEvent ev)
@@ -129,7 +126,7 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
             var mob = mobMaybe!.Value;
 
             _mindSystem.TransferTo(newMind, mob);
-            // SetOutfitCommand.SetOutfit(mob, sus.Gear, EntityManager);
+            SetOutfitCommand.SetOutfit(mob, ros.Gear, EntityManager);
             _roleSystem.MindAddRole(newMind, "MindRoleRosa");
 
             // Rounds only last like 5 minutes, so players shouldn't need to eat or drink.
@@ -145,9 +142,25 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
                 idCard.Comp.FullName = MetaData(mob).EntityName;
                 idCard.Comp.LocalizedJobTitle = Loc.GetString("job-name-psychologist");
             }
-
             ev.Handled = true;
             break;
+        }
+    }
+    private void StartNewDay(RosaRuleComponent ros)
+    {
+        if (ros.RosaCurrentDay <= ros.RosaDayCount)
+        {
+
+        ros.RosaCurrentDay += 1;
+
+        _chatManager.DispatchServerAnnouncement("A NEW DAY IS DAWNING!");
+        _chatManager.DispatchServerAnnouncement("Day " + Convert.ToString(ros.RosaCurrentDay));
+        }
+        else
+        {
+            //End the round once it's over
+            ros.GameState = RosaGameState.PostRound;
+            _roundEndSystem.EndRound(TimeSpan.FromSeconds(ros.PostRoundDuration));
         }
     }
 }

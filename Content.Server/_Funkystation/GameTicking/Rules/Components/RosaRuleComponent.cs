@@ -1,3 +1,6 @@
+using Content.Shared.Roles;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+
 namespace Content.Server._Funkystation.GameTicking.Rules.Components;
 
 [RegisterComponent, Access(typeof(RosaRuleSystem))]
@@ -8,7 +11,7 @@ public sealed partial class RosaRuleComponent : Component
     public RosaGameState GameState = RosaGameState.Preparing;
 
     /// <summary>
-    /// Defines when the round will end.
+    /// Defines when each day will end.
     /// </summary>
     public TimeSpan EndAt = TimeSpan.MinValue;
 
@@ -32,12 +35,24 @@ public sealed partial class RosaRuleComponent : Component
      /// </summary>
      [DataField]
      public int PostRoundDuration = 30;
-//
-//     /// <summary>
-//     /// The gear all players spawn with.
-//     /// </summary>
-//     [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<StartingGearPrototype>))]
-//     public string Gear = "SuspicionGear";
+
+     /// <summary>
+     /// Number of days in a round of Station Rosa.
+     /// </summary>
+     [DataField]
+     public int RosaDayCount = 3;
+
+     /// <summary>
+     /// The day that Rosa starts at.
+     /// </summary>
+     [DataField]
+     public int RosaCurrentDay = 0;
+
+     /// <summary>
+     /// The gear all players spawn with.
+     /// </summary>
+     [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<StartingGearPrototype>))]
+     public string Gear = "RosaGearPreparing";
 }
     public enum RosaGameState
     {
