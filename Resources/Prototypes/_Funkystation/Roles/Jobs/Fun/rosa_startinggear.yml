@@ -1,0 +1,21 @@
+# Rosa Gear
+
+- type: startingGear
+  id: RosaGearPreparing
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorGrey
+
+- type: startingGear
+  id: RosaGearRed
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorRed
+
+- type: startingGear
+  id: RosaGearGreen
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorGreen
+
+- type: startingGear
+  id: RosaGearBlue
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorBlue
