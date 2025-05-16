@@ -75,11 +75,12 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
         for (var i = 0; i < participatingPlayers.Count(); i++)
         {
             var role = participatingPlayers[i];
-            if (i % 3 == 0) {
+            if (i % 3 == 0)
+            {
                 role.comp.Role = RosaAgentRole.Red;
             }
-
-            if (i % 2 == 0) {
+            else if (i % 2 == 0)
+            {
                 role.comp.Role = RosaAgentRole.Green;
             }
             else
@@ -146,15 +147,16 @@ public sealed partial class RosaRuleSystem : GameRuleSystem<RosaRuleComponent>
             break;
         }
     }
+
     private void StartNewDay(RosaRuleComponent ros)
     {
-        if (ros.RosaCurrentDay <= ros.RosaDayCount)
+        ros.EndAt = TimeSpan.FromSeconds(ros.RoundDuration);
+            if (ros.RosaCurrentDay <= ros.RosaDayCount)
         {
+            ros.RosaCurrentDay += 1;
 
-        ros.RosaCurrentDay += 1;
-
-        _chatManager.DispatchServerAnnouncement("A NEW DAY IS DAWNING!");
-        _chatManager.DispatchServerAnnouncement("Day " + Convert.ToString(ros.RosaCurrentDay));
+            _chatManager.DispatchServerAnnouncement("A NEW DAY IS DAWNING!");
+            _chatManager.DispatchServerAnnouncement("Day " + Convert.ToString(ros.RosaCurrentDay));
         }
         else
         {

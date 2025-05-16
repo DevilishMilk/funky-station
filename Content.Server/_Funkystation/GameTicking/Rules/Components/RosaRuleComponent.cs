@@ -28,7 +28,7 @@ public sealed partial class RosaRuleComponent : Component
      /// How long the round lasts in seconds.
      /// </summary>
      [DataField]
-     public int RoundDuration = 60;
+     public int RoundDuration = 30;
 
      /// <summary>
      /// How long to wait before restarting the round after the summary is displayed.
